@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class Sender {
 
-    private final RabbitTemplate rabbitTemplate;
+    final RabbitTemplate rabbitTemplate;
 
     public void sendMessage(Message message) {
         log.info("Sending message : {}", message);
