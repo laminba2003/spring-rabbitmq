@@ -65,8 +65,7 @@ public class ApplicationConfig implements RabbitListenerConfigurer {
     public Jackson2JsonMessageConverter messageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
-        Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(objectMapper);
-        return converter;
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
     @Bean
