@@ -1,28 +1,26 @@
 package com.spring.training;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import static com.spring.training.Application.queueName;
-import static com.spring.training.Application.topicExchangeName;
+import static com.spring.training.Application.*;
 
 @Configuration
 public class ApplicationConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue(queueName, true, false, false);
+        return QueueBuilder.durable(QUEUE_MESSAGES)
+                .withArgument("x-dead-letter-exchange", DLX_EXCHANGE_MESSAGES).build();
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange(topicExchangeName);
+        return new TopicExchange(EXCHANGE_MESSAGES);
     }
 
     @Bean
@@ -31,14 +29,30 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(messageConverter());
-        return rabbitTemplate;
+    FanoutExchange deadLetterExchange() {
+        return new FanoutExchange(DLX_EXCHANGE_MESSAGES);
+    }
+
+    @Bean
+    Queue deadLetterQueue() {
+        return QueueBuilder.durable(DLQ_QUEUE_MESSAGES).build();
+    }
+
+    @Bean
+    Binding deadLetterBinding() {
+        return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange());
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory, SimpleRabbitListenerContainerFactoryConfigurer configurer) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        return factory;
     }
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
 }
