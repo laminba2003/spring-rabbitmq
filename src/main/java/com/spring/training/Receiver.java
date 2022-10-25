@@ -10,7 +10,7 @@ import javax.validation.Valid;
 @Slf4j
 public class Receiver {
 
-    @RabbitListener(queues = Application.QUEUE_MESSAGES)
+    @RabbitListener(queues = ApplicationConfig.QUEUE_MESSAGES)
     public void receiveMessage(@Payload @Valid Message message) {
         log.info("message received : {} ", message);
     }

@@ -14,7 +14,7 @@ public class Sender {
 
     public void sendMessage(Message message) {
         log.info("Sending message : {}", message);
-        rabbitTemplate.convertAndSend(Application.EXCHANGE_MESSAGES, "foo.bar.baz", message);
+        rabbitTemplate.convertAndSend(ApplicationConfig.EXCHANGE_MESSAGES, "foo.bar.baz", message);
     }
 
 }
