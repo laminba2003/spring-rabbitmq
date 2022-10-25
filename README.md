@@ -17,7 +17,7 @@ $ docker exec rabbitmq rabbitmqadmin list exchanges name durable type auto_delet
 
 
 ```
-$ docker exec rabbitmq rabbitmqadmin list queues vhost name node messages message_stats.publish_details.rate
+$ docker exec rabbitmq rabbitmqadmin list queues name node messages message_stats.publish_details.rate
 ```
 
 ## Create an exchange
