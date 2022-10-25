@@ -20,6 +20,6 @@ public class Message {
     @NotBlank(message = "the to email cannot be empty")
     String to;
     @JsonProperty(value = "content", required = true)
-    @NotBlank
+    @NotBlank(message = "the content cannot be empty")
     String content;
 }
