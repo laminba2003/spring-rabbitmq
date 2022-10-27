@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class Sender {
 
-    final RabbitTemplate rabbitTemplate;
+    final RabbitTemplate template;
 
     public void sendMessage(Message message) {
         log.info("Sending message : {}", message);
-        rabbitTemplate.convertAndSend(ApplicationConfig.EXCHANGE_MESSAGES, "foo.bar.baz", message);
+        template.convertAndSend(ApplicationConfig.EXCHANGE_MESSAGES, "foo.bar.baz", message);
     }
 
 }
