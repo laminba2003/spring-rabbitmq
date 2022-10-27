@@ -11,7 +11,7 @@ import javax.validation.Valid;
 public class Receiver {
 
     @RabbitListener(queues = ApplicationConfig.QUEUE_MESSAGES)
-    public void receiveMessage(@Payload @Valid Message message) {
+    public void consume(@Payload @Valid Message message) {
         log.info("message received : {} ", message);
     }
 }
