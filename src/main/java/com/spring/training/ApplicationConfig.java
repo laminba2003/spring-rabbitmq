@@ -70,14 +70,14 @@ public class ApplicationConfig implements RabbitListenerConfigurer {
     }
 
     @Bean
-    public Validator amqpValidator() {
+    public Validator messageValidator() {
         return new OptionalValidatorFactoryBean();
     }
 
     @Bean
     public DefaultMessageHandlerMethodFactory defaultMessageHandlerMethodFactory() {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
-        factory.setValidator(amqpValidator());
+        factory.setValidator(messageValidator());
         return factory;
     }
 

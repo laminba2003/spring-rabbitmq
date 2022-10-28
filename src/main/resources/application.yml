@@ -15,3 +15,7 @@ spring:
           ## But the maximum interval can never be exceeded
           multiplier: 2
 ##So the retry interval values will be 3s, 6s, 10s, 10s, 10s. As 10 sec is the max interval specified.
+logging:
+  level:
+    org.springframework.amqp.rabbit.retry: ERROR
+    org.springframework.amqp.rabbit.listener: ERROR
