@@ -1,5 +1,7 @@
-package com.spring.training;
+package com.spring.training.messaging;
 
+import com.spring.training.model.Message;
+import com.spring.training.config.ApplicationConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;

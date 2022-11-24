@@ -1,4 +1,4 @@
-package com.spring.training;
+package com.spring.training.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +19,10 @@ import org.springframework.validation.beanvalidation.OptionalValidatorFactoryBea
 @Configuration
 public class ApplicationConfig implements RabbitListenerConfigurer {
 
-    static final String EXCHANGE_MESSAGES = "spring-boot-exchange";
-    static final String DLX_EXCHANGE_MESSAGES = EXCHANGE_MESSAGES + ".dlx";
-    static final String QUEUE_MESSAGES = "spring-boot";
-    static final String DLQ_QUEUE_MESSAGES = QUEUE_MESSAGES + ".dlq";
+    public static final String EXCHANGE_MESSAGES = "spring-boot-exchange";
+    public static final String DLX_EXCHANGE_MESSAGES = EXCHANGE_MESSAGES + ".dlx";
+    public static final String QUEUE_MESSAGES = "spring-boot";
+    public static final String DLQ_QUEUE_MESSAGES = QUEUE_MESSAGES + ".dlq";
 
     @Bean
     public Queue queue() {
